@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form input anggota Rohis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            width: 100%;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .data-container {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"], 
+        select {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="text"]:focus, 
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f8f9fa;
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .form-buttons button {
+            flex: 1;
+        }
+        
+        button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+        
+        button.submit-btn {
+            background: #27ae60;
+        }
+        
+        button.submit-btn:hover {
+            background: #219653;
+        }
+        
+        button.download-btn {
+            background: #2ecc71;
+        }
+        
+        button.download-btn:hover {
+            background: #27ae60;
+        }
+        
+        button.reset-btn {
+            background: #e74c3c;
+        }
+        
+        button.reset-btn:hover {
+            background: #c0392b;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 16px;
+            margin-top: 20px;
+            border-radius: 8px;
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            flex-grow: 1;
+        }
+        
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .data-table-container {
+            overflow-y: auto;
+            max-height: 400px;
+            margin-bottom: 25px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: auto;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            border: 1px solid #e9ecef;
+        }
+        
+        .stat-box h3 {
+            font-size: 1.5rem;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .stat-box p {
+            color: #6c757d;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .radio-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .form-buttons, .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <!-- SheetJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-user-graduate"></i> Form Input Data Anggota Rohis</h1>
+        <p>email : rohisashabulyamin@gmail.com</p>
+    </header>
+    
+    <div class="container">
+        <div class="form-container">
+            <h2><i class="fas fa-edit"></i> Form Input</h2>
+            <form id="dataForm">
+                <div class="form-group">
+                    <label for="nama">Nama Lengkap:</label>
+                    <input type="text" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="kelas">Kelas:</label>
+                    <select id="kelas" name="kelas" required>
+                        <option value="">Pilih Kelas</option>
+                        <option value="AKL">AKL (Akuntansi dan Keuangan Lembaga)</option>
+                        <option value="MPLB">MPLB (Manajemen Perkantoran dan Layanan Bisnis)</option>
+                        <option value="TJKT">TJKT (Teknik Jaringan Komputer dan Telekomunikasi)</option>
+                        <option value="DKV">DKV (Desain Komunikasi Visual)</option>
+                        <option value="PMS">PMS (Pemasaran)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jabatan">Jabatan:</label>
+                    <select id="jabatan" name="jabatan" required>
+                        <option value="">Pilih Jabatan</option>
+                        <option value="Ketua">Ketua</option>
+                        <option value="Wakil Ketua">Wakil Ketua</option>
+                        <option value="Sekretaris">Sekretaris</option>
+                        <option value="Bendahara">Bendahara</option>
+                        <option value="Keihwanan">Keihwanan</option>
+                        <option value="Keakhwatan">Keakhwatan</option>
+                        <option value="SDM">SDM</option>
+                        <option value="PHBI">PHBI</option>
+                        <option value="Dakwah">Dakwah</option>
+                        <option value="Sarpras">Sarpras</option>
+                        <option value="Kominfo">Kominfo</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Jenis Kelamin:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="laki" name="jenis_kelamin" value="Laki-laki" required>
+                            <label for="laki">Laki-laki</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="perempuan" name="jenis_kelamin" value="Perempuan">
+                            <label for="perempuan">Perempuan</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="submit" class="submit-btn"><i class="fas fa-plus-circle"></i> Tambah Data</button>
+                    <button type="reset" class="reset-btn"><i class="fas fa-undo"></i> Reset Form</button>
+                </div>
+            </form>
+            
+            <div id="successMessage" class="success-message">
+                <i class="fas fa-check-circle"></i> Data berhasil ditambahkan!
+            </div>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <h3 id="totalData">0</h3>
+                    <p>Total Data</p>
+                </div>
+                <div class="stat-box">
+                    <h3 id="lastAdded">-</h3>
+                    <p>Terakhir Ditambah</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="data-container">
+            <h2><i class="fas fa-database"></i> Data Tersimpan</h2>
+            
+            <div class="data-table-container">
+                <table id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Jabatan</th>
+                            <th>Jenis Kelamin</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data akan dimasukkan di sini oleh JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="button-group">
+                <button id="downloadBtn" class="download-btn"><i class="fas fa-file-excel"></i> Unduh Excel</button>
+                <button id="resetAllBtn" class="reset-btn"><i class="fas fa-trash"></i> Hapus Semua Data</button>
+            </div>
+        </div>
+    </div>
+
+<!-- ... HTML sama sampai bagian SCRIPT ... -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const API = 'http://localhost:3000/api';
+    const form = document.getElementById('dataForm');
+    const tableBody = document.querySelector('#dataTable tbody');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const resetAllBtn = document.getElementById('resetAllBtn');
+    const successMessage = document.getElementById('successMessage');
+    const totalDataElement = document.getElementById('totalData');
+    const lastAddedElement = document.getElementById('lastAdded');
+
+    let savedData = [];
+
+    async function fetchData() {
+        const res = await fetch(`${API}/anggota`);
+        savedData = await res.json();
+        renderTable();
+    }
+
+    function renderTable() {
+        tableBody.innerHTML = '';
+        if (savedData.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = '<td colspan="4" style="text-align: center; color: #999; padding: 30px;">Belum ada data yang tersimpan</td>';
+            tableBody.appendChild(emptyRow);
+            totalDataElement.textContent = '0';
+            lastAddedElement.textContent = '-';
+            return;
+        }
+        savedData.forEach((data, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${data.nama}</td>
+                <td>${data.kelas}</td>
+                <td>${data.jabatan}</td>
+                <td>${data.jenis_kelamin}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+        totalDataElement.textContent = savedData.length;
+        if (savedData.length > 0) {
+            lastAddedElement.textContent = savedData[savedData.length - 1].nama;
+        }
+    }
+
+    fetchData();
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const nama = document.getElementById('nama').value;
+        const kelas = document.getElementById('kelas').value;
+        const jabatan = document.getElementById('jabatan').value;
+        const jenisKelamin = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+        await fetch(`${API}/anggota`, {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            body: JSON.stringify({nama, kelas, jabatan, jenis_kelamin:jenisKelamin})
+        });
+        await fetchData();
+        successMessage.style.display = 'block';
+        form.reset();
+        setTimeout(() => { successMessage.style.display = 'none'; }, 3000);
+    });
+
+    downloadBtn.addEventListener('click', function() {
+        window.location.href = `${API}/download`;
+    });
+
+    resetAllBtn.addEventListener('click', async function() {
+        if (savedData.length === 0) {
+            alert('Tidak ada data yang bisa dihapus!');
+            return;
+        }
+        if (confirm('Apakah Anda yakin ingin menghapus semua data? Tindakan ini tidak dapat dibatalkan.')) {
+            await fetch(`${API}/anggota`, { method: 'DELETE' });
+            await fetchData();
+            alert('Semua data telah dihapus!');
+        }
+    });
+});
+</script>
+</body>
+</html>
